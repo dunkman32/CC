@@ -1,0 +1,64 @@
+.center-on-page {
+    position: relative;
+    background-color: #d4d4d4;
+    width: 96%;
+    margin: 0 auto;
+    border-radius: 0 0 0px 10px;
+    height: 48px;
+}
+h1 {
+    text-align: center;
+}
+/* Reset Select */
+select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    outline: 0;
+    box-shadow: none;
+    border: 0 !important;
+    background: #3b5f8c;
+}
+/* Custom Select */
+.select {
+    position: absolute;
+    right: 0;
+    display: block;
+    width: 20em;
+    height: 3em;
+    line-height: 3;
+    background: #3b5f8c;
+    overflow: hidden;
+    border-radius: .25em;
+}
+select {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0 0 0 .5em;
+    color: #fff;
+    cursor: pointer;
+}
+select::-ms-expand {
+    display: none;
+}
+/* Arrow */
+.select::after {
+    content: '\25BC';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    padding: 0 1em;
+    background: #34495e;
+    pointer-events: none;
+}
+/* Transition */
+.select:hover::after {
+    color: #f39c12;
+}
+.select::after {
+    -webkit-transition: .25s all ease;
+    -o-transition: .25s all ease;
+    transition: .25s all ease;
+}

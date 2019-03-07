@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="students.css">
+    <link rel="stylesheet" href="../static/checkBox.css">
+    <link rel="stylesheet" href="../static/select.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="./students.js" async></script>
+</head>
+<body>
+<div class="sidenav">
+    <img src="../static/TSU_logo.png" alt="tsu logo" class="image"/>
+    <hr/>
+    <div class="links">
+        <a class="navLinks activeLink" href="#">Students</a>
+        <a class="navLinks" href="#">Services</a>
+        <a class="navLinks" href="#">Clients</a>
+        <a class="navLinks" href="#">Contact</a>
+    </div>
+</div>
+<div class="container">
+    <p class="pageTitle"> კურსდამთავრებულები </p>
+    <button class="button" onclick="openModal()">&#10133;</button>
+    <table id="table"></table>
+    <div class="center-on-page">
+
+        <div class="select">
+            <select name="slct" onchange="change(event)" id="slct">
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="15">15</option>
+                <option value="15">20</option>
+                <option value="15">25</option>
+                <option value="15">30</option>
+            </select>
+        </div>
+
+    </div>
+</div>
+
+
+<div id="myModal" class="modal">
+
+    <!-- Modal content -->
+    <div class="modal-content">
+        <div class="modal-header">
+            <span onclick="closeModal()" class="close">&times;</span>
+            <h2>Modal Header</h2>
+        </div>
+        <div class="modal-body formDiv">
+            <form id="myForm">
+                <label for="SID">Student Id</label>
+                <input type="text" id="SID" name="id" placeholder="Student Id..">
+                <div class="middleInput">
+                    <div class="middle">
+                        <label for="name">Student Name</label>
+                        <input type="text" id="name" name="name" placeholder="Student Name..">
+                    </div>
+                    <div class="middle">
+                        <label for="lname">Student Lastname</label>
+                        <input type="text" id="lname" name="lname" placeholder="Student Lastname..">
+                    </div>
+                </div>
+                <div class="middleInput">
+                    <div class="middle">
+                        <label for="year">Student Year</label>
+                        <input type="number" id="year" name="year" placeholder="Student Year..">
+                    </div>
+                    <div class="middle">
+                        <label for="gpa">GPA</label>
+                        <input type="number" id="gpa" name="gpa" placeholder="Student GPA..">
+                    </div>
+                </div>
+                <label class="checkbox-container"> მუშაობს?
+                    <input id="addCheckbox" type="checkbox">
+                    <span class="checkmark"></span>
+                </label>
+                <button class="submitButton" onclick="addStudent(event)">Submit</button>
+                <button class="button2" onclick="closeModal()">close</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div id="editModal" class="modal">
+
+    <!-- Modal content -->
+    <div class="modal-content">
+        <div class="modal-header">
+            <span onclick="closeEditModal()" class="close">&times;</span>
+            <h2>Modal Header</h2>
+        </div>
+        <div class="modal-body formDiv">
+            <form id="editForm">
+                <label for="SID">Student Id</label>
+                <input type="text" id="ESID" name="id" placeholder="Student Id..">
+                <div class="middleInput">
+                    <div class="middle">
+                        <label for="name">Student Name</label>
+                        <input type="text" id="ename" name="name" placeholder="Student Name..">
+                    </div>
+                    <div class="middle">
+                        <label for="lname">Student Lastname</label>
+                        <input type="text" id="elname" name="lname" placeholder="Student Lastname..">
+                    </div>
+                </div>
+                <div class="middleInput">
+                    <div class="middle">
+                        <label for="year">Student Year</label>
+                        <input type="number" id="eyear" name="year" placeholder="Student Year..">
+                    </div>
+                    <div class="middle">
+                        <label for="gpa">GPA</label>
+                        <input type="number" id="egpa" name="gpa" placeholder="Student GPA..">
+                    </div>
+                </div>
+                <label class="checkbox-container"> მუშაობს?
+                    <input id="editCheckbox" type="checkbox">
+                    <span class="checkmark"></span>
+                </label>
+                <button class="submitButton" onclick="editStudent(event)">Submit</button>
+                <button class="button2" onclick="closeEditModal()">close</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div id="deleteModal" class="deleteModal">
+
+    <div class="deleteModal-content">
+        <div class="deleteModal-header">
+            <p>do you really want to delete it?</p>
+        </div>
+        <div class="deleteModal-footer">
+
+            <hr>
+            <div class="deleteModal-buttons">
+                <button class="deleteModal-button button2" onclick="closeDeleteModal()">close</button>
+                <button class="deleteModal-button button3" onclick="deleteStudent()">delete</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
