@@ -26,13 +26,13 @@ function closeEditModal () {
 function renderTable (docs) {
   studentsData = docs
   var cards = '<tr>' +
-    '<th>Work</th>' +
-    '<th>Id</th>' +
-    '<th>Firstname</th>' +
-    '<th>lastname</th>' +
+    '<th>სამსახური</th>' +
+    '<th>პირადი ნომერი</th>' +
+    '<th>სახელი</th>' +
+    '<th>გვარი</th>' +
     '<th>GPA</th>' +
-    '<th>year</th>' +
-    '<th>actions</th>' +
+    '<th>დასრულების წელი</th>' +
+    '<th>ქმედება</th>' +
     '</tr>'
   studentsData.forEach(function (student) {
     cards += '<tr>' +

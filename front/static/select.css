@@ -4,7 +4,8 @@
     width: 96%;
     margin: 0 auto;
     border-radius: 0 0 0 10px;
-    height: 3.1em;
+    height: 2em;
+    padding: 5px 0;
 }
 h1 {
     text-align: center;
@@ -24,9 +25,8 @@ select {
     position: absolute;
     right: 0;
     display: block;
-    width: 20em;
-    height: 3em;
-    line-height: 3;
+    width: 10em;
+    line-height: 2;
     background: #3b5f8c;
     overflow: hidden;
     border-radius: .25em;
