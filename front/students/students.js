@@ -2,7 +2,9 @@ var modal = document.getElementById('myModal')
 var deleteModal = document.getElementById('deleteModal')
 var e_modal = document.getElementById('editModal')
 var filterModal = document.getElementById('filterModal')
-var a = null
+var infoModal = document.getElementById('infoModal')
+var dropFileForm = document.getElementById('myForm')
+var droppedFiles = null
 var studentId = null
 var studentsData = []
 var page = 1
@@ -15,6 +17,10 @@ function openModal () {
 
 function closeModal () {
   modal.style.display = 'none'
+}
+
+function closeEditModal () {
+  e_modal.style.display = 'none'
 }
 
 function renderTable (docs) {
@@ -37,6 +43,8 @@ function renderTable (docs) {
       '<td>' + student.GPA + '</td>' +
       '<td>' + student.year + '</td>' +
       '<td>' +
+      '<span class="info fa fa-info-circle" onclick="openInfoModal(\'' +
+      student._id + '\')"></span>' +
       '<span class="editButton fa fa-pencil" onclick="openEditModal(\'' +
       student._id + '\')"></span>' +
       '<span class="deleteButton fa fa-trash" onclick="openDeleteModal(\'' +
@@ -62,36 +70,6 @@ function studentsTable () {
 
 function getWorkStatus (isChecked) {
   return isChecked ? 'მუშაობს!' : 'არ მუშაობს!'
-}
-
-function addStudent (event) {
-  event.preventDefault()
-  var id = document.getElementById('SID')
-  var name = document.getElementById('name')
-  var lastname = document.getElementById('lname')
-  var year = document.getElementById('year')
-  var GPA = document.getElementById('gpa')
-  var isWorking = document.getElementById('addCheckbox').checked
-  var XHR = new XMLHttpRequest()
-
-  var obj = {
-    id: id.value,
-    name: name.value,
-    lastname: lastname.value,
-    year: year.value,
-    GPA: GPA.value,
-    isWorking: isWorking,
-  }
-
-  XHR.open('POST', '/api/student/')
-  XHR.setRequestHeader('Content-Type', 'application/json;charset=UTF-8')
-  XHR.send(JSON.stringify(obj))
-  XHR.onreadystatechange = function () {
-    if (XHR.status === 200) {
-      closeModal()
-    }
-  }
-  studentsTable()
 }
 
 function deleteStudent () {
@@ -175,8 +153,34 @@ function openEditModal (_id) {
   studentId = _id
 }
 
-function closeEditModal () {
-  e_modal.style.display = 'none'
+function openInfoModal (_id) {
+  infoModal.style.display = 'block'
+  if (_id) {
+
+    var currentStudent = studentsData.filter(function (student) {
+      return student._id === _id
+    })
+    if (currentStudent && currentStudent.length) {
+      delete currentStudent[0]['__v']
+      delete currentStudent[0]['_id']
+      delete currentStudent[0]['addDate']
+      var student = ''
+      document.getElementById('studentPic').src = '/api/student/download/'+currentStudent[0]['photo']
+      delete currentStudent[0]['photo']
+      for (let [key, value] of Object.entries(currentStudent[0])) {
+        if (key === 'isWorking') value = getWorkStatus(value)
+        student += '<div class="studentInfoElement">' +
+          '<p class="elKey">' + key + '</p>' +
+          '<p class="elValue">: ' + value + '</p>' +
+          '</div>'
+      }
+      document.getElementById('infoDiv').innerHTML = student
+    }
+  }
+}
+
+function closeInfoModal () {
+  infoModal.style.display = 'none'
 }
 
 function openDeleteModal (_id) {
@@ -228,5 +232,47 @@ function filterStudents (e) {
   oReq.send()
 }
 
+// async function uploadFiles (event) {
+//   event.preventDefault()
+//   addStatus('Uploading...')
+//   var formData = new FormData()
+//   formData.append('drag', file, file.name)
+//
+//   var xhr = new XMLHttpRequest()
+//
+//   xhr.open(dropFileForm.method, dropFileForm.action, true)
+//   xhr.send(formData)
+//
+//   xhr.onreadystatechange = function (data) {
+//     if (xhr.status === 200) {
+//       setTimeout(function () {
+//         getFiles()
+//         deleteStatus('')
+//       }, 1000)
+//     }
+//   }
+// }
 
+function addStudent (event) {
+  event.preventDefault()
+  var formData = new FormData()
+  var pic = document.getElementById('pic').files[0]
 
+  var XHR = new XMLHttpRequest()
+  formData.append('drag', pic, pic.name)
+  formData.append('id', document.getElementById('SID').value)
+  formData.append('name', document.getElementById('name').value)
+  formData.append('lastname', document.getElementById('lname').value)
+  formData.append('year', document.getElementById('year').value)
+  formData.append('GPA', document.getElementById('gpa').value)
+  formData.append('isWorking', document.getElementById('addCheckbox').checked)
+  console.log(formData)
+  XHR.open('POST', '/api/student/')
+  XHR.send(formData)
+  XHR.onreadystatechange = function () {
+    if (XHR.status === 200) {
+      closeModal()
+    }
+  }
+  studentsTable()
+}

@@ -58,9 +58,15 @@ async function eraseFile (id, bucketName) {
   })
 }
 
+function downloadFile (id) {
+  const bucket = getBucket('files')
+  return bucket.openDownloadStream(mongoose.Types.ObjectId(id))
+}
+
 module.exports = {
   getFileInfo,
   uploadFile,
   promisedRemoveFile,
+  downloadFile,
   eraseFile,
 }

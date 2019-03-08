@@ -1,0 +1,48 @@
+.modal-header {
+    border-radius: 15px 15px 0 0;
+    padding: 2px 16px;
+    background-color: #3b5f8c;
+    color: white;
+}
+
+.modal-body {
+    padding: 2px 16px;
+}
+
+.modal-footer {
+    border-radius: 0 0 15px 15px;
+
+    padding: 2px 16px;
+    background-color: #3b5f8c;
+    color: white;
+}
+
+input[type=text], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type=number], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.edit-header {
+    background-color:  rgba(255, 100, 0, .8);
+}
+.info-header {
+    background-color:  rgba(0, 255, 0, .8);
+}
+.delete-header {
+    background-color:  rgba(255, 0, 0, .8);
+}

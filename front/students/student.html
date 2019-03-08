@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="students.css">
     <link rel="stylesheet" href="../static/checkBox.css">
     <link rel="stylesheet" href="../static/select.css">
+    <link rel="stylesheet" href="../static/modal.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="./students.js" async></script>
 </head>
@@ -49,14 +50,23 @@
 
     <!-- Modal content -->
     <div class="modal-content">
-        <div class="modal-header">
+        <div class="modal-header add-header">
             <span onclick="closeModal()" class="close">&times;</span>
             <h2>Modal Header</h2>
         </div>
         <div class="modal-body formDiv">
             <form id="myForm">
-                <label for="SID">Student Id</label>
-                <input type="text" id="SID" name="id" placeholder="Student Id..">
+
+                <div class="middleInput">
+                    <div class="middle">
+                        <label for="pic" class="inputFile fa fa-cloud-upload">ფოტო</label>
+                        <input accept=".jpg, .jpeg, .png, .gif" type="file" id="pic" name="pic">
+                    </div>
+                    <div class="middle">
+                        <label for="SID">Student Id</label>
+                        <input type="text" id="SID" name="id" placeholder="Student Id..">
+                    </div>
+                </div>
                 <div class="middleInput">
                     <div class="middle">
                         <label for="name">Student Name</label>
@@ -91,7 +101,7 @@
 <div id="editModal" class="modal">
     <!-- Modal content -->
     <div class="modal-content">
-        <div class="modal-header">
+        <div class="modal-header edit-header">
             <span onclick="closeEditModal()" class="close">&times;</span>
             <h2>Modal Header</h2>
         </div>
@@ -133,7 +143,7 @@
 <div id="deleteModal" class="deleteModal">
 
     <div class="deleteModal-content">
-        <div class="deleteModal-header">
+        <div class="deleteModal-header delete-header">
             <p>do you really want to delete it?</p>
         </div>
         <div class="deleteModal-footer">
@@ -148,11 +158,10 @@
 
 </div>
 
-
 <div id="filterModal" class="modal">
     <!-- Modal content -->
     <div class="modal-content">
-        <div class="modal-header">
+        <div class="modal-header filter-header">
             <span onclick="closeFilterModal()" class="close">&times;</span>
             <h2>Modal Header</h2>
         </div>
@@ -187,6 +196,24 @@
                 <button class="submitButton" onclick="filterStudents(event)">Submit</button>
                 <button class="button2" onclick="closeFilterModal()">close</button>
             </form>
+        </div>
+    </div>
+</div>
+<div id="infoModal" class="modal">
+    <!-- Modal content -->
+    <div class="modal-content">
+        <div class="modal-header info-header">
+            <span onclick="closeInfoModal()" class="close">&times;</span>
+            <h2>Modal Header</h2>
+        </div>
+        <div class="modal-body formDiv">
+            <div class="card">
+                <img id="studentPic" class="img" src="../static/TSU_logo.png" alt="Avatar">
+                <div class="cardContainer">
+                    <div id="infoDiv"></div>
+                </div>
+            </div>
+            <button class="button2" onclick="closeInfoModal()">close</button>
         </div>
     </div>
 </div>

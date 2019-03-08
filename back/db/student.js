@@ -1,6 +1,6 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
-const mongoosePaginate = require('mongoose-paginate');
+const mongoose = require('mongoose')
+const Schema = mongoose.Schema
+const mongoosePaginate = require('mongoose-paginate')
 
 const StudentSchema = new Schema({
   id: String,
@@ -10,13 +10,14 @@ const StudentSchema = new Schema({
   year: Number,
   isWorking: {
     default: false,
-    type: Boolean
+    type: Boolean,
   },
   addDate: {
     type: Date,
-    default:new Date()
-  }
-}, {collection: 'students'});
+    default: new Date(),
+  },
+  photo: String,
+}, {collection: 'students'})
 
-StudentSchema.plugin(mongoosePaginate);
-module.exports = mongoose.model('Student', StudentSchema);
+StudentSchema.plugin(mongoosePaginate)
+module.exports = mongoose.model('Student', StudentSchema)

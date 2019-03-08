@@ -3,8 +3,8 @@
     background-color: #d4d4d4;
     width: 96%;
     margin: 0 auto;
-    border-radius: 0 0 0px 10px;
-    height: 48px;
+    border-radius: 0 0 0 10px;
+    height: 3.1em;
 }
 h1 {
     text-align: center;
@@ -61,4 +61,24 @@ select::-ms-expand {
     -webkit-transition: .25s all ease;
     -o-transition: .25s all ease;
     transition: .25s all ease;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.inputFile {
+    background-image: url("../static/backrounds/back3.png");
+    position: relative;
+    font-family: "Comic Sans MS";
+    font-size: 18px;
+    text-align: center;
+    width: 100%;
+    z-index: 100;
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 11px 0;
+    top: 2.5px;
+    cursor: pointer;
+    border-radius: .25em;
 }
