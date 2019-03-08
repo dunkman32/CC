@@ -1,6 +1,7 @@
 var modal = document.getElementById('myModal')
 var deleteModal = document.getElementById('deleteModal')
 var e_modal = document.getElementById('editModal')
+var filterModal = document.getElementById('filterModal')
 var a = null
 var studentId = null
 var studentsData = []
@@ -34,7 +35,7 @@ function studentsTable () {
         '<th>actions</th>' +
         '</tr>'
       studentsData.forEach(function (student) {
-        cards +='<tr>'+
+        cards += '<tr>' +
           '<td>' + getWorkStatus(student.isWorking) + '</td>' +
           '<td>' + student.id + '</td>' +
           '<td>' + student.name + '</td>' +
@@ -184,10 +185,42 @@ function closeDeleteModal () {
   deleteModal.style.display = 'none'
 }
 
+function openFilterModal (_id) {
+  filterModal.style.display = 'block'
+  studentId = _id
+}
+
+function closeFilterModal () {
+  filterModal.style.display = 'none'
+}
+
 function change (e) {
-  console.log(e)
   limit = document.getElementById('slct').value
-  studentsTable();
+  studentsTable()
+}
+
+function filterByName () {
+
+  var id = document.getElementById('FSID').value
+  var name = document.getElementById('fname').value
+  var lastname = document.getElementById('flname').value
+  var year = document.getElementById('fyear').value
+  var GPA = document.getElementById('fgpa').value
+  var isWorking = document.getElementById('editCheckbox').checked
+
+  var oReq = new XMLHttpRequest()
+
+  oReq.open('GET',
+    '/api/student/list?id=' + id + 'name=' + name + 'lastname=' + lastname +
+    '&year=' + year + '&gpa=' + GPA +
+    '&work=' + isWorking)
+  oReq.onreadystatechange = function () {
+    if (oReq.readyState === 4) {
+      var students = JSON.parse(oReq.response)
+      console.log(students, 'students')
+    }
+  }
+  oReq.send()
 }
 
 

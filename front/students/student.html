@@ -22,7 +22,11 @@
 </div>
 <div class="container">
     <p class="pageTitle"> კურსდამთავრებულები </p>
-    <button class="button" onclick="openModal()">&#10133;</button>
+    <div class="_buttons">
+        <button class="button fa fa-filter" onclick="openFilterModal()"></button>
+        <button class="button fa fa-plus" onclick="openModal()"></button>
+
+    </div>
     <table id="table"></table>
     <div class="center-on-page">
 
@@ -85,7 +89,6 @@
 </div>
 
 <div id="editModal" class="modal">
-
     <!-- Modal content -->
     <div class="modal-content">
         <div class="modal-header">
@@ -145,5 +148,47 @@
 
 </div>
 
+
+<div id="filterModal" class="modal">
+    <!-- Modal content -->
+    <div class="modal-content">
+        <div class="modal-header">
+            <span onclick="closeFilterModal()" class="close">&times;</span>
+            <h2>Modal Header</h2>
+        </div>
+        <div class="modal-body formDiv">
+            <form id="filterForm">
+                <label for="SID">Student Id</label>
+                <input type="text" id="FSID" name="id" placeholder="Student Id..">
+                <div class="middleInput">
+                    <div class="middle">
+                        <label for="name">Student Name</label>
+                        <input type="text" id="fname" name="name" placeholder="Student Name..">
+                    </div>
+                    <div class="middle">
+                        <label for="lname">Student Lastname</label>
+                        <input type="text" id="flname" name="lname" placeholder="Student Lastname..">
+                    </div>
+                </div>
+                <div class="middleInput">
+                    <div class="middle">
+                        <label for="year">Student Year</label>
+                        <input type="number" id="fyear" name="year" placeholder="Student Year..">
+                    </div>
+                    <div class="middle">
+                        <label for="gpa">GPA</label>
+                        <input type="number" id="fgpa" name="gpa" placeholder="Student GPA..">
+                    </div>
+                </div>
+                <label class="checkbox-container"> მუშაობს?
+                    <input id="fditCheckbox" type="checkbox">
+                    <span class="checkmark"></span>
+                </label>
+                <button class="submitButton" onclick="filterStudent(event)">Submit</button>
+                <button class="button2" onclick="closeFilterModal()">close</button>
+            </form>
+        </div>
+    </div>
+</div>
 </body>
 </html>

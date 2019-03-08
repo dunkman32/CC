@@ -11,7 +11,6 @@ router.post('/', function (req, res, next) {
 
 router.get('/', async (req, res, next) => {
   // let student = await Student.find().exec()
-  console.log('hhhhh')
   let page = parseInt(req.query.page);
   let limit = parseInt(req.query.limit);
   console.log(page, limit)
