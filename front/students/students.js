@@ -17,6 +17,36 @@ function closeModal () {
   modal.style.display = 'none'
 }
 
+function renderTable (docs) {
+  studentsData = docs
+  var cards = '<tr>' +
+    '<th>Work</th>' +
+    '<th>Id</th>' +
+    '<th>Firstname</th>' +
+    '<th>lastname</th>' +
+    '<th>GPA</th>' +
+    '<th>year</th>' +
+    '<th>actions</th>' +
+    '</tr>'
+  studentsData.forEach(function (student) {
+    cards += '<tr>' +
+      '<td>' + getWorkStatus(student.isWorking) + '</td>' +
+      '<td>' + student.id + '</td>' +
+      '<td>' + student.name + '</td>' +
+      '<td>' + student.lastname + '</td>' +
+      '<td>' + student.GPA + '</td>' +
+      '<td>' + student.year + '</td>' +
+      '<td>' +
+      '<span class="editButton fa fa-pencil" onclick="openEditModal(\'' +
+      student._id + '\')"></span>' +
+      '<span class="deleteButton fa fa-trash" onclick="openDeleteModal(\'' +
+      student._id + '\')"></span>' +
+      '</td>' +
+      '</tr>'
+  })
+  document.getElementById('table').innerHTML = cards.toString()
+}
+
 function studentsTable () {
   var oReq = new XMLHttpRequest()
 
@@ -24,34 +54,7 @@ function studentsTable () {
   oReq.onreadystatechange = function () {
     if (oReq.readyState === 4) {
       var students = JSON.parse(oReq.response)
-      studentsData = students.docs
-      var cards = '<tr>' +
-        '<th>Work</th>' +
-        '<th>Id</th>' +
-        '<th>Firstname</th>' +
-        '<th>lastname</th>' +
-        '<th>GPA</th>' +
-        '<th>year</th>' +
-        '<th>actions</th>' +
-        '</tr>'
-      studentsData.forEach(function (student) {
-        cards += '<tr>' +
-          '<td>' + getWorkStatus(student.isWorking) + '</td>' +
-          '<td>' + student.id + '</td>' +
-          '<td>' + student.name + '</td>' +
-          '<td>' + student.lastname + '</td>' +
-          '<td>' + student.GPA + '</td>' +
-          '<td>' + student.year + '</td>' +
-          '<td>' +
-          '<span class="editButton fa fa-pencil" onclick="openEditModal(\'' +
-          student._id + '\')"></span>' +
-          '<span class="deleteButton fa fa-trash" onclick="openDeleteModal(\'' +
-          student._id + '\')"></span>' +
-          '</td>' +
-          '</tr>'
-      })
-      document.getElementById('table').innerHTML = cards.toString()
-
+      renderTable(students.docs)
     }
   }
   oReq.send()
@@ -199,25 +202,27 @@ function change (e) {
   studentsTable()
 }
 
-function filterByName () {
-
+function filterStudents (e) {
+  e.preventDefault()
   var id = document.getElementById('FSID').value
   var name = document.getElementById('fname').value
   var lastname = document.getElementById('flname').value
   var year = document.getElementById('fyear').value
   var GPA = document.getElementById('fgpa').value
-  var isWorking = document.getElementById('editCheckbox').checked
-
+  var isWorking = document.getElementById('filterCheckbox').checked
+  console.log(id, isWorking)
   var oReq = new XMLHttpRequest()
 
   oReq.open('GET',
-    '/api/student/list?id=' + id + 'name=' + name + 'lastname=' + lastname +
+    '/api/student/list?id=' + id + '&name=' + name + '&lastname=' + lastname +
     '&year=' + year + '&gpa=' + GPA +
     '&work=' + isWorking)
   oReq.onreadystatechange = function () {
-    if (oReq.readyState === 4) {
+    if (oReq.status === 200) {
+      console.log(oReq.response)
       var students = JSON.parse(oReq.response)
-      console.log(students, 'students')
+      renderTable(students)
+      closeFilterModal()
     }
   }
   oReq.send()

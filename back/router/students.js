@@ -11,14 +11,55 @@ router.post('/', function (req, res, next) {
 
 router.get('/', async (req, res, next) => {
   // let student = await Student.find().exec()
-  let page = parseInt(req.query.page);
-  let limit = parseInt(req.query.limit);
+  let page = parseInt(req.query.page)
+  let limit = parseInt(req.query.limit)
   console.log(page, limit)
   Student.paginate({}, {
     page: page,
     limit: limit,
-    sort: "-addDate"
-  }).then(results => res.send(results)).catch(next);
+    sort: '-addDate',
+  }).then(results => res.send(results)).catch(next)
+  // res.send(student)
+})
+
+function parseString (tmpString) {
+  return tmpString === 'true'
+}
+
+router.get('/list', async (req, res, next) => {
+
+  let query = {}
+
+  if (req.query.id && req.query.id !== '') query.id = req.query.id
+  if (req.query.name && req.query.name !== '') query.name = req.query.name
+  if (req.query.lastname && req.query.lastname !==
+    '') query.lastname = req.query.lastname
+  if (req.query.year && req.query.year !== '') query.year = parseInt(req.query.year)
+  if (req.query.gpa && req.query.gpa !== '') query.GPA = parseFloat(req.query.gpa)
+  if (req.query.work && req.query.work !== '') query.isWorking = parseString(
+    req.query.work)
+
+  console.log(query)
+
+  Student.paginate(query, {
+    page: 1,
+    limit: 5,
+    sort: "-addDate",
+  }).then(results => {
+    console.log(results)
+    res.send(results.docs)
+  }).catch(next);
+
+
+  // let student = await Student.find().exec()
+  // let page = parseInt(req.query.page);
+  // let limit = parseInt(req.query.limit);
+  // console.log(page, limit)
+  // Student.paginate({}, {
+  //   page: page,
+  //   limit: limit,
+  //   sort: "-addDate"
+  // }).then(results => res.send(results)).catch(next);
   // res.send(student)
 })
 

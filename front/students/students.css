@@ -227,7 +227,7 @@ input[type=number], select {
 }
 
 .middle {
-    width: 49% !important;
+    width: 48.5% !important;
     margin: 0 .35% !important;
     display: inline-block;
 }
